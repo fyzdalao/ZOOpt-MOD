@@ -1,3 +1,5 @@
+# 我在学习和魔改这个项目、尝试摸一摸它的套路。
+
 The maintenance of ZOOpt has shifted to https://github.com/polixir/ZOOpt . The new version is compatible with [Ray](https://github.com/ray-project/ray).
 
 # ZOOpt
