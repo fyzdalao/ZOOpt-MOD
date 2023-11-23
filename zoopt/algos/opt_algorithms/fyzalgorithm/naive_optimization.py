@@ -28,18 +28,20 @@ class Naive:
         self._best_solution = self._objective.construct_solution(dim.rand_sample())
         delta = 1
         previous_value = self._objective.eval(self._best_solution)
-        count = 0
+        history = []
         while True:
-            count += 1
+            history.append(previous_value)
             if self._parameter.get_time_budget() is not None:
                 if (time.time() - time_log1) >= self._parameter.get_time_budget():
                     ToolFunction.log('naive-algorithm runs out of time_budget')
+                    #objective.set_history(history)
                     return self._best_solution
             x_t: Solution = self._objective.construct_solution(self.generate_vector(delta))
             new_value = self._objective.eval(x_t)
             if new_value < previous_value:
                 delta *= 1.2
                 self._best_solution = x_t
+                previous_value = new_value
             else:
                 delta *= 0.8
 
