@@ -24,22 +24,23 @@ class Naive:
         self.set_objective(objective)
         self.set_parameters(parameter)
         time_log1 = time.time()
+        random.seed(time.time())
         dim: Dimension = self._objective.get_dim()
         self._best_solution = self._objective.construct_solution(dim.rand_sample())
         delta = 1
         previous_value = self._objective.eval(self._best_solution)
         history = []
         while True:
-            history.append(previous_value)
             if self._parameter.get_time_budget() is not None:
                 if (time.time() - time_log1) >= self._parameter.get_time_budget():
                     ToolFunction.log('naive-algorithm runs out of time_budget')
-                    #objective.set_history(history)
+                    objective.set_history(history)
                     return self._best_solution
             x_t: Solution = self._objective.construct_solution(self.generate_vector(delta))
             new_value = self._objective.eval(x_t)
+            history.append(new_value)
             if new_value < previous_value:
-                delta *= 1.2
+                delta *= 1.5
                 self._best_solution = x_t
                 previous_value = new_value
             else:
@@ -49,10 +50,9 @@ class Naive:
         dim: Dimension = self._objective.get_dim()
         dimsize = dim.get_size()
         region = dim.get_regions()
-        random.seed()
         v = [random.random() for _ in range(dimsize)]
         for i in range(dimsize):
-            v[i] *= (region[i][1] - region[i][0])*0.01*times
+            v[i] *= (region[i][1] - region[i][0])*0.02*times
             v[i] += self._best_solution.get_x()[i]
         return v
 
