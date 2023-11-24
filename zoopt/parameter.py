@@ -37,7 +37,7 @@ class Parameter:
         This class contains all parameters used for optimization.
     """
 
-    def __init__(self, algorithm=None, budget=0, exploration_rate=0.01, init_samples=None, time_budget=None, terminal_value=None,
+    def __init__(self, algorithm=None, budget=3, exploration_rate=0.01, init_samples=None, time_budget=None, terminal_value=None,
                  sequential=True, precision=None, uncertain_bits=None, intermediate_result=False, intermediate_freq=100, autoset=True,
                  noise_handling=False, resampling=False, suppression=False, ponss=False, ponss_theta=None, ponss_b=None,
                  non_update_allowed=500, resample_times=100, balance_rate=0.5, high_dim_handling=False, reducedim=False,
